@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Quiz for My Love</title>
+    <style>
+        body {
+            background-color: #ffebeb;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #d00000;
+        }
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #d00000;
+        }
+        button {
+            background: #d00000;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #a00000;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>💖 Romantic Quiz 💖</h1>
+    <div class="quiz-container" id="quiz">
+        <p id="question-text"></p>
+        <div id="options"></div>
+        <button onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div class="hidden" id="reward">
+        <h2>🎉 You did it, my love! 🎉</h2>
+        <img src="https://i.imgur.com/qz3FZ7r.png" alt="Teddy Bears Hugging" width="200">
+        <p><strong>I will love you forever! ❤️</strong></p>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Your boyfriend's favorite sport?",
+                options: ["Football", "Basketball", "Cricket", "Tennis"],
+                correct: "Cricket"
+            },
+            {
+                question: "Our love anniversary date?",
+                options: ["1st February", "5th March", "10th April", "25th December"],
+                correct: "5th March"
+            },
+            {
+                question: "How much do you love your boyfriend?",
+                options: ["Little", "So much", "Not at all", "Infinity"],
+                correct: "Infinity"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+
+        function loadQuestion() {
+            if (currentQuestion >= questions.length) {
+                document.getElementById("quiz").classList.add("hidden");
+                document.getElementById("reward").classList.remove("hidden");
+                return;
+            }
+
+            const questionObj = questions[currentQuestion];
+            document.getElementById("question-text").innerText = questionObj.question;
+            
+            let optionsHTML = "";
+            questionObj.options.forEach(option => {
+                optionsHTML += `<button onclick="checkAnswer('${option}')">${option}</button><br>`;
+            });
+
+            document.getElementById("options").innerHTML = optionsHTML;
+        }
+
+        function checkAnswer(answer) {
+            if (answer === questions[currentQuestion].correct) {
+                correctAnswers++;
+            }
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+
+</body>
+</html>
